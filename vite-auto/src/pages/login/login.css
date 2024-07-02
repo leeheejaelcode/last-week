@@ -5,7 +5,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid;
 }
 
 .container h1 {
@@ -29,4 +28,33 @@
   width: 100%;
   min-width: 200px;
   margin: 0.2rem 0;
+  outline: none;
+}
+
+.container input:focus {
+  border: 1px solid;
+}
+
+.container button[type='submit'] {
+  margin-top: 1.5rem;
+  background-color: #000;
+  color: #fff;
+  width: 100%;
+  padding: 1rem;
+  cursor: pointer;
+  transition: ease all 0.3s;
+}
+
+.register {
+  display: inline-block;
+  padding: 1rem;
+  border: 1px solid;
+  width: 100%;
+  border-radius: 30px;
+  transition: ease all 0.3s;
+}
+
+.register:hover {
+  background-color: #000;
+  color: #fff;
 }
