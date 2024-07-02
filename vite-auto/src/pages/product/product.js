@@ -1,12 +1,22 @@
+import defaultAuthData from '@/api/defaultAuthData';
 import getPbImageURL from '@/api/getPbImageURL.js';
+import pb from '@/api/pocketbase';
 import '@/pages/product/product.css';
 import gsap from 'gsap';
-import { comma, insertLast, setDocumentTitle } from 'kind-tiger';
-import pb from '@/api/pocketbase';
+import {
+  comma,
+  getStorage,
+  insertLast,
+  setDocumentTitle,
+  setStorage,
+} from 'kind-tiger';
 
 setDocumentTitle('29CM / 상품목록');
 
 async function renderProductItem() {
+  if (!localStorage.getItem('auth')) {
+    setStorage('auth', defaultAuthData);
+  }
   // 밑에 주소로 get 통신
   // http://127.0.0.1:8090은 로컬 주소
   // 환경 변수는 변수에 받아쓰는걸 권장하지 않음
@@ -25,14 +35,22 @@ async function renderProductItem() {
       sort: '-created',
     }); // SDK
 
+  // 로그인을 했는지 안했는지 파악.
+  const { isAuth } = await getStorage('auth');
+
+  console.log(isAuth);
+
   productData.forEach((item) => {
     const discount = item.price * (item.ratio * 0.01);
 
     // 포켓베이스에서 img 넣는 방법
+
+    // product에 id값을 item.id값으로 보내주는것
     const template = `
     <li class="product-item">
           <div>
             <figure>
+            <a href="${isAuth ? `/src/pages/detail/index.html?product=${item.id}` : '/src/pages/login/'}"></a>
               <img src="${getPbImageURL(item)}" alt="대체텍스트" />
             </figure>
             <span class="brand">${item.brand}</span>
@@ -54,3 +72,11 @@ async function renderProductItem() {
 }
 
 renderProductItem();
+
+// 사용자가 누른 상품의 정보를 같이 내보내주기
+
+/*  
+<a href="${isAuth ? `/src/pages/detail/index.html?product=${item.id}` : '/src/pages/login/'}"></a>
+ */
+
+// product는 key item.id는 value

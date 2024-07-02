@@ -42,7 +42,6 @@
   width: 100%;
   padding: 1rem;
   cursor: pointer;
-  transition: ease all 0.3s;
 }
 
 .register {
@@ -51,7 +50,6 @@
   border: 1px solid;
   width: 100%;
   border-radius: 30px;
-  transition: ease all 0.3s;
 }
 
 .register:hover {
