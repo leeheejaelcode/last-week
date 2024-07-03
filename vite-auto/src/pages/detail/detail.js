@@ -7,11 +7,9 @@ async function renderProductDetail() {
   // url에 params를 가져오는 방법 get 사용
   const params = new URLSearchParams(location.search);
   const productId = params.get('product');
-
   const data = await pb.collection('products').getOne(productId);
 
   const { brand, description, price, ratio } = data;
-
   const template = /* html */ `
     <div class="wrapper">
       <div class="brand">
@@ -38,10 +36,7 @@ async function renderProductDetail() {
   `;
   insertLast('.container', template);
 }
-
 renderProductDetail();
-
-//
 
 // 주소창에 product id 가져와서
 // pb  해당 id 요청

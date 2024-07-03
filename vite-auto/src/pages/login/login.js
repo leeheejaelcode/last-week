@@ -10,7 +10,6 @@ const tl = gsap.timeline({
     opacity: 0,
   },
 });
-
 tl.from('.container h1', { delay: 0.2, y: 30 })
   .from('.container hr', { scaleX: 0 })
   .from('form > *', { y: 30, stagger: 0.1 })
@@ -20,12 +19,9 @@ const loginButton = getNode('.login');
 
 async function handleLogin(e) {
   e.preventDefault();
-
-  // const id = 'seonbeom2@gmail.com';
-  // const pw = 'dkssud123';
   const id = getNode('#idField').value;
   const pw = getNode('#pwField').value;
-
+  // SDK
   pb.collection('users')
     .authWithPassword(id, pw)
     .then(

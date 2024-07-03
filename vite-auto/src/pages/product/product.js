@@ -10,10 +10,11 @@ import {
   setDocumentTitle,
   setStorage,
 } from 'kind-tiger';
-
+// title 바꾸는
 setDocumentTitle('29CM / 상품목록');
 
 async function renderProductItem() {
+  // 로그인을 했는지 안했는지 파악.
   if (!localStorage.getItem('auth')) {
     setStorage('auth', defaultAuthData);
   }
@@ -32,19 +33,14 @@ async function renderProductItem() {
       // sort를 사용해서
       // price 가격순으로 정렬하기
       // create 생성된 순으로 정렬하기
-      sort: '-created',
+      sort: 'price',
     }); // SDK
 
-  // 로그인을 했는지 안했는지 파악.
   const { isAuth } = await getStorage('auth');
-
-  console.log(isAuth);
 
   productData.forEach((item) => {
     const discount = item.price * (item.ratio * 0.01);
-
     // 포켓베이스에서 img 넣는 방법
-
     // product에 id값을 item.id값으로 보내주는것
     const template = `
     <li class="product-item">
@@ -74,9 +70,9 @@ async function renderProductItem() {
 renderProductItem();
 
 // 사용자가 누른 상품의 정보를 같이 내보내주기
-
+// isAuth가 true인 경우 상품 정보를 같이 보내줌
+// false인 경우 로그인 페이지로
 /*  
 <a href="${isAuth ? `/src/pages/detail/index.html?product=${item.id}` : '/src/pages/login/'}"></a>
  */
-
 // product는 key item.id는 value
